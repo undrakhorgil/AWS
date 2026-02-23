@@ -101,6 +101,44 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ![AIM user](images/iam_user.png)
 
+Let’s change a value manually in AWS and use Terraform to detect the drift.
+
+![AIM user](images/iam_user_change.png)
+
+(base) mac@mac iam-users % terraform plan -refresh-only -detailed-exitcode
+```bash
+module.aws_iam_user.aws_iam_user.this: Refreshing state... [id=terraform-dev-user]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have affected this plan:
+
+  # module.aws_iam_user.aws_iam_user.this has changed
+  ~ resource "aws_iam_user" "this" {
+        id                   = "terraform-dev-user"
+        name                 = "terraform-dev-user"
+      ~ tags                 = {
+            "Environment" = "dev"
+            "ManagedBy"   = "Terraform"
+          ~ "Owner"       = "orgil" -> "unkhown"
+            "Project"     = "terraform-learning"
+        }
+      ~ tags_all             = {
+          ~ "Owner"       = "orgil" -> "unkhown"
+            # (3 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+    }
+
+
+This is a refresh-only plan, so Terraform will not take any actions to undo these. If you were expecting these changes then you can apply this plan to record the updated values in
+the Terraform state without changing any remote objects.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
+
 
 (base) mac@mac iam-users % terraform destroy
 ```bash
