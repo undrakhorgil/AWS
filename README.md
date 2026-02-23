@@ -1,5 +1,5 @@
 # 1. IAM user creation
-
+### Initialize the Terraform project folder.
 (base) mac@mac AWS % terraform init             
 ```bash
 Initializing the backend...
@@ -19,6 +19,7 @@ If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
+### Preview changes before applying.
 
 (base) mac@mac AWS % terraform plan             
 ```bash
@@ -55,6 +56,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
+### Apply the planned changes.
 
 (base) mac@mac AWS % terraform apply
 ```bash
@@ -101,7 +103,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ![AIM user](images/iam_user.png)
 
-Let’s change a value manually in AWS and use Terraform to detect the drift.
+### Let’s change a value manually in AWS and use Terraform to detect the drift.
 
 ![AIM user](images/iam_user_change.png)
 
@@ -139,6 +141,48 @@ the Terraform state without changing any remote objects.
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
 
+### Apply the planned changes.
+
+(base) mac@mac iam-users % terraform apply -refresh-only    
+```bash          
+module.aws_iam_user.aws_iam_user.this: Refreshing state... [id=terraform-dev-user]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have affected this plan:
+
+  # module.aws_iam_user.aws_iam_user.this has changed
+  ~ resource "aws_iam_user" "this" {
+        id                   = "terraform-dev-user"
+        name                 = "terraform-dev-user"
+      ~ tags                 = {
+            "Environment" = "dev"
+            "ManagedBy"   = "Terraform"
+          ~ "Owner"       = "orgil" -> "unkhown"
+            "Project"     = "terraform-learning"
+        }
+      ~ tags_all             = {
+          ~ "Owner"       = "orgil" -> "unkhown"
+            # (3 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+    }
+
+
+This is a refresh-only plan, so Terraform will not take any actions to undo these. If you were expecting these changes then you can apply this plan to record the updated values in
+the Terraform state without changing any remote objects.
+
+Would you like to update the Terraform state to reflect these detected changes?
+  Terraform will write these changes to the state without modifying any real infrastructure.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+```
+
+### Remove all resources managed by this Terraform folder/state.
 
 (base) mac@mac iam-users % terraform destroy
 ```bash
