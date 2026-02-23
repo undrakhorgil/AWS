@@ -20,7 +20,7 @@ rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
 
-% terraform plan             
+(base) mac@mac AWS % terraform plan             
 ```bash
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -100,6 +100,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
 ![AIM user](images/IAM_user.png)
+
 
 (base) mac@mac iam-users % terraform destroy
 ```bash
