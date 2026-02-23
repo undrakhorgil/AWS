@@ -1,5 +1,5 @@
 # 1. IAM user creation
-### Initialize the Terraform project folder.
+### ✅ Initialize the Terraform project folder.
 (base) mac@mac AWS % terraform init             
 ```bash
 Initializing the backend...
@@ -19,7 +19,7 @@ If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
-### Preview changes before applying.
+### ✅ Preview changes before applying.
 
 (base) mac@mac AWS % terraform plan             
 ```bash
@@ -56,7 +56,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
-### Apply the planned changes.
+### ✅ Apply the planned changes.
 
 (base) mac@mac AWS % terraform apply
 ```bash
@@ -103,7 +103,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ![AIM user](images/iam_user.png)
 
-### Let’s change a value manually in AWS and use Terraform to detect the drift.
+### ✅ Let’s change a value manually in AWS and use Terraform to detect the drift.
 
 ![AIM user](images/iam_user_change.png)
 
@@ -141,7 +141,7 @@ the Terraform state without changing any remote objects.
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
 
-### Apply the planned changes.
+### ✅ Accept drift into state
 
 (base) mac@mac iam-users % terraform apply -refresh-only    
 ```bash          
@@ -182,7 +182,7 @@ Would you like to update the Terraform state to reflect these detected changes?
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 ```
 
-### Remove all resources managed by this Terraform folder/state.
+### ✅ Remove all resources managed by this Terraform folder/state
 
 (base) mac@mac iam-users % terraform destroy
 ```bash
