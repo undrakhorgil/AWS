@@ -99,7 +99,7 @@ module.aws_iam_user.aws_iam_user.this: Creation complete after 0s [id=terraform-
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
-![AIM user](images/IAM_user.png)
+![AIM user](images/iam_user.png)
 
 
 (base) mac@mac iam-users % terraform destroy
