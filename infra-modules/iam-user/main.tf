@@ -4,3 +4,4 @@ resource "aws_iam_user" "this" {
     ManagedBy = "Terraform"
   })
 }
+
