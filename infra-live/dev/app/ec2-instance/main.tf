@@ -2,7 +2,15 @@ data "terraform_remote_state" "network" {
   backend = "local"
 
   config = {
-    path = "/Users/mac/Documents/Courses/AWS/infra-live/dev/network/vpc/terraform.tfstate"
+    path = "${path.root}/../../network/vpc/terraform.tfstate"
+  }
+}
+
+data "terraform_remote_state" "key" {
+  backend = "local"
+  
+  config = {
+    path = "${path.root}/../../keys/terraform.tfstate"
   }
 }
 
@@ -18,5 +26,6 @@ module "ec2" {
   vpc_id    = data.terraform_remote_state.network.outputs.vpc_id
 
   my_ip   = var.my_ip
-  key_name = "your-keypair-name"
+  key_name = data.terraform_remote_state.key.outputs.key_name
 }
+
